@@ -2,7 +2,7 @@ import  { useState,useEffect } from "react";
 import { checkValidData } from "../utils/validate";
 //import { isTokenExpired } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
-const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL.replace(/\/$/, "");;
 console.log("ENV:", process.env);
 
 
