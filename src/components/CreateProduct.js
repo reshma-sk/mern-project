@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL.replace(/\/$/, "");
 const CreateProduct = () => {
   const [form, setForm] = useState({
     name: "",
@@ -25,7 +25,7 @@ const CreateProduct = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch(`${BASE_URL}/api/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
