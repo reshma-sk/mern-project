@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51Qi0z8KDiXgzbsukhyEjrHYelClsL9ecjdwSvOr12KDEFVaMuDQp7ifdbchQV0dy3gNAntgaEapDGJ7IdqX1oVJ200XOwkIFKY')
-const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL.replace(/\/$/, "");
 
 const Protected = () => {
   const [user, setUser] = useState("");
