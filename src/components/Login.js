@@ -92,15 +92,15 @@ const Login = () => {
   useEffect(() => {
     async function getReq() {
       try {
-        const baseURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL.replace(
+        const baseURL = process.env.REACT_APP_BACKEND_BASEURL.replace(
           /\/$/,
           ""
         ); // remove trailing slash
-        const response = await fetch(`${baseURL}/api/customers`, {
+        const response = await fetch(`${baseURL}/api/users`, {
           method: "GET",
         });
         console.log(response);
-        console.log("Backend URL:", `${baseURL}/api/customers`);
+        console.log("Backend URL:", `${baseURL}/api/users`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
