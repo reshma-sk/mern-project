@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useState,useEffect } from "react";
 import { checkValidData } from "../utils/validate";
 //import { isTokenExpired } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
@@ -89,7 +89,33 @@ const Login = () => {
       }
     }
   };
+  useEffect(() => {
+    async function getReq() {
+      try {
+        const baseURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL.replace(
+          /\/$/,
+          ""
+        ); // remove trailing slash
+        const response = await fetch(`${baseURL}/api/customers`, {
+          method: "GET",
+        });
+        console.log(response);
+        console.log("Backend URL:", `${baseURL}/api/customers`);
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        //const data = await response.json(); // or .json() if your backend returns JSON
+        //setMessage(data.message); // ✅ store it in state
+      } catch (error) {
+        console.error("Fetch error:", error);
+        //setMessage("Failed to load message.");
+      }
+    }
+
+    getReq();
+  }, []);
   return (
     <div>
       <form
