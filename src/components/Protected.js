@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51Qi0z8KDiXgzbsukhyEjrHYelClsL9ecjdwSvOr12KDEFVaMuDQp7ifdbchQV0dy3gNAntgaEapDGJ7IdqX1oVJ200XOwkIFKY')
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+
 const Protected = () => {
   const [user, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
@@ -15,7 +17,7 @@ const Protected = () => {
 
   async function refreshAccessToken() {
     try {
-      const res = await fetch("http://localhost:5000/api/users/refresh-token", {
+      const res = await fetch(`${BASE_URL}/api/users/refresh-token`, {
         method: "POST",
         credentials: "include", // important to send cookies!
       });
@@ -31,7 +33,7 @@ const Protected = () => {
 
   async function fetchProducts(token) {
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch(`${BASE_URL}/api/products`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +62,7 @@ const Protected = () => {
 
       // First attempt to access protected resource
       let protectedResponse = await fetch(
-        "http://localhost:5000/api/users/protected",
+        `${BASE_URL}/api/users/protected`,
         {
           method: "GET",
           headers: {
@@ -83,7 +85,7 @@ const Protected = () => {
         }
         // Retry protected request with new token
         protectedResponse = await fetch(
-          "http://localhost:5000/api/users/protected",
+          `${BASE_URL}/api/users/protected`,
           {
             method: "GET",
             headers: {
@@ -115,7 +117,7 @@ const Protected = () => {
     try {
       // Send cart data to backend to create Stripe Checkout session
       const response = await fetch(
-        "http://localhost:5000/api/payment/create-checkout-session",
+        `${BASE_URL}/api/payment/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

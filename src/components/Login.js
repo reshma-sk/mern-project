@@ -2,6 +2,8 @@ import  { useState } from "react";
 import { checkValidData } from "../utils/validate";
 //import { isTokenExpired } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+console.log("ENV:", process.env);
 
 
 const Login = () => {
@@ -25,10 +27,11 @@ const Login = () => {
     const message = checkValidData(fullName, email, password);
     setErrorMessage(message);
     if (message) return;
-
+    
+    
     if (isSignIn) {
       try {
-        const response = await fetch("http://localhost:5000/api/users/login", {
+        const response = await fetch(`${BASE_URL}/api/users/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -56,7 +59,7 @@ const Login = () => {
       }
     } else {
       try {
-        const response = await fetch("http://localhost:5000/api/users", {
+        const response = await fetch(`${BASE_URL}/api/users`, {
           method: "POST",
           //credentials: 'include',
           headers: { "Content-Type": "application/json" },

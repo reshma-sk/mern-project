@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const AdminDashboard = () => {
   async function fetchProducts() {
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch(`/api/products`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +41,7 @@ const AdminDashboard = () => {
   async function fetchUserCount() {
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch("http://localhost:5000/api/users", {
+      const res = await fetch(`${BASE_URL}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +60,7 @@ const AdminDashboard = () => {
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetch(
-        `http://localhost:5000/api/users/make-admin/${userId}`,
+        `${BASE_URL}/api/users/make-admin/${userId}`,
         {
           method: "PUT",
           headers: {
